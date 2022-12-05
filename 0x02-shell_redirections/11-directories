@@ -1,2 +1,2 @@
 #!/bin/bash
-Find .-type d !-path .| wc-1
+find . type d -path './*' -print | wc -1
