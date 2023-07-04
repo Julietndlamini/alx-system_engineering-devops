@@ -10,7 +10,7 @@ new_website=\
 "server {
         listen 80;
         listen [::]:80;
-        server_name snedtrading.tech;
+        server_name snee.tech;
         root /var/www/html;
         index index.html index.htm index.nginx-debian.html 404.html;
         
@@ -22,7 +22,7 @@ new_website=\
                 internal;
         }
         if ($request_filename ~ redirect_me){
-            rewrite ^ http://linkedin.com/in/juliet-ndlamini-753761138 permanent;
+            rewrite ^ http://Snee permanent;
         }
 }"
 
