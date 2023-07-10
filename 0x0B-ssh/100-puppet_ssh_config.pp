@@ -5,8 +5,8 @@ file_line { 'no password authetication':
   line   => '    PasswordAuthentication no',
 }
 
-file_line { 'identity file set to school':
+file_line { 'identity file set to id_rsa':
    ensure => 'present',
   path   => '/etc/ssh/ssh_config',
-  line   => '    IdentityFile ~/.ssh/school',
+  line   => '    IdentityFile ~/.ssh/id_rsa',
 }
