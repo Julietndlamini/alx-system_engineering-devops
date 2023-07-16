@@ -37,14 +37,14 @@ frontend  ridhwan-frontend-http
         bind *:80
         mode http
 		http-request set-header X-Forwarded-Proto http
-        default_backend drkgaphar-backend
+        default_backend snee-backend
 
 frontend ridhwan-frontend-https
-	bind *:443 ssl crt /etc/haproxy/certs/drkgaphar.tech.pem
+	bind *:443 ssl crt  /etc/letsencrypt/renewal/www.snee.tech.conf
 	http-request set-header X-Forwarded-Proto https
-	default_backend drkgaphar-backend
+	default_backend snee-backend
 
 backend ridhwan-backend
         balance roundrobin
-        server 76716-web-02 54.144.198.157 check
-        server 76716-web-01 100.25.204.64 check
+        server 76716-web-02 18.206.232.73 check
+        server 76716-web-01 100.25.31.5 check
