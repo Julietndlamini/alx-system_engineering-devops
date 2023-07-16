@@ -37,12 +37,12 @@ frontend  ridhwan-frontend-http
         bind *:80
         mode http
 		http-request set-header X-Forwarded-Proto http
-        default_backend drkgaphar-backend
+        default_backend snee-backend
 
 frontend ridhwan-frontend-https
-	bind *:443 ssl crt /etc/haproxy/certs/drkgaphar.tech.pem
+	bind *:443 ssl crt . /etc/letsencrypt/renewal/www.snee.tech.conf
 	http-request set-header X-Forwarded-Proto https
-	default_backend drkgaphar-backend
+	default_backend snee-backend
 
 backend ridhwan-backend
         balance roundrobin
