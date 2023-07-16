@@ -33,18 +33,24 @@ defaults
 	errorfile 503 /etc/haproxy/errors/503.http
 	errorfile 504 /etc/haproxy/errors/504.http
 
-frontend  ridhwan-frontend-http
-        bind *:80
+frontend  www-http
+        bind 0:0:0:0:80
         mode http
-		http-request set-header X-Forwarded-Proto http
-        default_backend snee-backend
+		http-request add-header X-Forwarded-Proto http
+        default_backend www-backend
 
-frontend ridhwan-frontend-https
-	bind *:443 ssl crt  /etc/letsencrypt/renewal/www.snee.tech.conf
-	http-request set-header X-Forwarded-Proto https
-	default_backend snee-backend
+frontend frontend-https
+	bind 0:0:0:0:443 ssl crt  /etc/letsencrypt/live/www.snee.tech/fullchain.pem
+	http-request add-header X-Forwarded-Proto https
+acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+use_backend letsencrypt-backend if letsencrypt-acl
+	default_backend www-backend
 
-backend ridhwan-backend
+backend www-backend
         balance roundrobin
-        server 76716-web-02 18.206.232.73 check
-        server 76716-web-01 100.25.31.5 check
+        redirect scheme https if !{ ssl_fc}
+        server 113309-web-02 18.206.232.73:80 check
+        server 113309-web-01 100.25.31.5:80 check
+
+backend letsencrypt-backend
+server letsencrypt 54.90.2.56:113309
